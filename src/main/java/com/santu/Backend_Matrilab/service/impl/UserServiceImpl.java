@@ -152,26 +152,36 @@ public class UserServiceImpl implements IUserService {
         return response;
     }
 
+//    @Override
+//    public Response getAllUsers() {
+//        Response response = new Response();
+//        try {
+//            // Fetch all users from the repository
+//            List<User> users = userRepository.findAll();
+//
+//            // Map user entities to user DTOs for cleaner response
+//            List<UserDTO> userDTOs = users.stream()
+//                    .map(Utils::mapUserEntityToUserDTO)
+//                    .toList();
+//
+//            response.setStatusCode(200);
+//            response.setMessage("User list fetched successfully.");
+//            response.setUserList(userDTOs); // Assuming `Response` has a `userList` field for multiple users
+//        } catch (Exception e) {
+//            response.setStatusCode(500);
+//            response.setMessage("Failed to fetch user list: " + e.getMessage());
+//        }
+//        return response;
+//    }
+
     @Override
-    public Response getAllUsers() {
-        Response response = new Response();
-        try {
-            // Fetch all users from the repository
-            List<User> users = userRepository.findAll();
-
-            // Map user entities to user DTOs for cleaner response
-            List<UserDTO> userDTOs = users.stream()
-                    .map(Utils::mapUserEntityToUserDTO)
-                    .toList();
-
-            response.setStatusCode(200);
-            response.setMessage("User list fetched successfully.");
-            response.setUserList(userDTOs); // Assuming `Response` has a `userList` field for multiple users
-        } catch (Exception e) {
-            response.setStatusCode(500);
-            response.setMessage("Failed to fetch user list: " + e.getMessage());
-        }
-        return response;
+    public List<UserDTO> getAllUsers() {
+        // Fetch all users and map to DTOs
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(Utils::mapUserEntityToUserDTO)
+                .toList();
     }
+
 
 }
